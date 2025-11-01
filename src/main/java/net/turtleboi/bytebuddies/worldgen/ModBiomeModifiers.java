@@ -28,6 +28,8 @@ public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_ABUNDANT_ALUMINUM_ORE = registerKey("add_abundant_aluminum_ore");
     public static final ResourceKey<BiomeModifier> ADD_RARE_ALUMINUM_ORE = registerKey("add_rare_aluminum_ore");
 
+    public static final ResourceKey<BiomeModifier> ADD_BLUESTONE_ORE = registerKey("add_bluestone_ore");
+    public static final ResourceKey<BiomeModifier> ADD_LOWER_BLUESTONE_ORE = registerKey("add_lower_bluestone_ore");
     public static void bootstrap(BootstrapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         var biomes = context.lookup(Registries.BIOME);
@@ -74,6 +76,25 @@ public class ModBiomeModifiers {
                         biomes.getOrThrow(Biomes.STONY_PEAKS)
                 ),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ALUMINUM_ORE_RARE_PLACED_KEY)),
+                GenerationStep.Decoration.UNDERGROUND_ORES
+        ));
+
+        context.register(ADD_BLUESTONE_ORE, new BiomeModifiers.AddFeaturesBiomeModifier(
+                HolderSet.direct(
+                        biomes.getOrThrow(Biomes.PLAINS),
+                        biomes.getOrThrow(Biomes.SUNFLOWER_PLAINS),
+                        biomes.getOrThrow(Biomes.FOREST),
+                        biomes.getOrThrow(Biomes.FLOWER_FOREST),
+                        biomes.getOrThrow(Biomes.BIRCH_FOREST),
+                        biomes.getOrThrow(Biomes.MANGROVE_SWAMP),
+                        biomes.getOrThrow(Biomes.MEADOW)
+                ),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.BLUESTONE_ORE_PLACED_KEY)),
+                GenerationStep.Decoration.UNDERGROUND_ORES
+        ));
+        context.register(ADD_LOWER_BLUESTONE_ORE, new BiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.BLUESTONE_ORE_LOWER_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));
     }
